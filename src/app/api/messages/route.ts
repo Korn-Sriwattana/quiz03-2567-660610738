@@ -9,29 +9,29 @@ export const GET = async (request: NextRequest) => {
   readDB();
   const payload = checkToken();
   const { roomId } = <Payload>payload;
-  // const foundRoomIndex = (<Database>DB).messages.findIndex(
-  //   (x) => x.roomId === roomId
-  // );
-  // if (foundRoomIndex === -1) {
-  //   return NextResponse.json(
-  //     {
-  //       ok: false,
-  //       message: `Room is not found`,
-  //     },
-  //     { status: 404 }
-  //   );
-  // };
-  const roomIdList = [];
-  for (const message of (<Database>DB).messages) {
-    if (message.roomId === roomId) {
-      roomIdList.push(message.roomId);
-    }
-  }
-  const messages = [];
-  for (const roomId of roomIdList) {
-    const messages = (<Database>DB).messages.find(
-      (x) => x.roomId === roomId );
-  }
+  const foundRoomIndex = (<Database>DB).messages.findIndex(
+    (x) => x.roomId === roomId
+  );
+  if (foundRoomIndex === -1) {
+    return NextResponse.json(
+      {
+        ok: false,
+        message: `Room is not found`,
+      },
+      { status: 404 }
+    );
+  };
+  // const roomIdList = [];
+  // for (const message of (<Database>DB).messages) {
+  //   if (message.roomId === roomId) {
+  //     roomIdList.push(message.roomId);
+  //   }
+  // }
+  // const messages = [];
+  // for (const roomId of roomIdList) {
+  //   const messages = (<Database>DB).messages.find(
+  //     (x) => x.roomId === roomId );
+  // }
 
   return NextResponse.json({
     ok: true,
