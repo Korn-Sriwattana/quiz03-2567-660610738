@@ -41,9 +41,10 @@ export const GET = async () => {
   }
 
 export const POST = async (request: NextRequest) => {
-  readDB();
   const body = await request.json();
   const { roomId } = body;
+  readDB();
+  
 
   const foundRoomId= (<Database>DB).rooms.findIndex(
     (x) => x.roomId === roomId);
