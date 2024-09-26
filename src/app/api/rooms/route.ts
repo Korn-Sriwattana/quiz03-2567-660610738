@@ -2,7 +2,7 @@ import { DB, readDB, writeDB } from "@lib/DB";
 import { checkToken } from "@lib/checkToken";
 import { nanoid } from "nanoid";
 import { NextRequest, NextResponse } from "next/server";
-import { Payload } from "@lib/DB";
+
 import { Database } from "@lib/DB";
 
 export const GET = async () => {

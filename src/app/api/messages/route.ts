@@ -42,7 +42,6 @@ export const GET = async (request: NextRequest) => {
 
 export const POST = async (request: NextRequest) => {
   const payload = checkToken();
-  const { role } = <Payload>payload;
   readDB();
   const body = await request.json();
   const { roomId } = body;
