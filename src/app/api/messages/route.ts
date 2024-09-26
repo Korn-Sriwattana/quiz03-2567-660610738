@@ -41,7 +41,7 @@ export const GET = async () => {
   }
 
 export const POST = async (request: NextRequest) => {
-  readDB();s
+  readDB();
   const body = await request.json();
   const { roomId } = body;
 
