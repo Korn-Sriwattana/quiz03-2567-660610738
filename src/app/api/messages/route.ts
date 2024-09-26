@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Database } from "@lib/DB";
 
 
-export const GET = async (request: NextRequest) => {
+export const GET = async () => {
   readDB();
   const payload = checkToken();
   const { roomId } = <Payload>payload;
@@ -41,8 +41,7 @@ export const GET = async (request: NextRequest) => {
   }
 
 export const POST = async (request: NextRequest) => {
-  const payload = checkToken();
-  readDB();
+  readDB();s
   const body = await request.json();
   const { roomId } = body;
 
