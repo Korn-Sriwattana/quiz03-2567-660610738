@@ -1,26 +1,39 @@
-import { DB, readDB, writeDB,Payload } from "@lib/DB";
+import { DB, readDB, writeDB, Payload } from "@lib/DB";
 import { checkToken } from "@lib/checkToken";
 import { nanoid } from "nanoid";
 import { NextRequest, NextResponse } from "next/server";
 import { Database } from "@lib/DB";
 
-
 export const GET = async () => {
-  readDB();
-  const payload = checkToken();
-  const { roomId } = <Payload>payload;
-  const foundRoomIndex = (<Database>DB).messages.findIndex(
-    (x) => x.roomId === roomId
-  );
-  if (foundRoomIndex === -1) {
-    return NextResponse.json(
-      {
-        ok: false,
-        message: `Room is not found`,
-      },
-      { status: 404 }
-    );
-  };
+  try {
+    readDB();
+    // const payload = checkToken();
+    // const { roomId } = <Payload>payload;
+    // const foundRoomIndex = (<Database>DB).messages.findIndex(
+    //   (x) => x.roomId === roomId
+    // );
+    // if (foundRoomIndex === -1) {
+    //   return NextResponse.json(
+    //     {
+    //       ok: false,
+    //       message: `Room is not found`,
+    //     },
+    //     { status: 404 }
+    //   );
+    // }
+    return NextResponse.json({
+      ok: true,
+      message: (<Database>DB).messages, //filtered
+    });
+  } catch (err) {
+    console.log(err);
+
+    return NextResponse.json({
+      ok: false,
+      message: `Error: ${err}`,
+    });
+  }
+
   // const roomIdList = [];
   // for (const message of (<Database>DB).messages) {
   //   if (message.roomId === roomId) {
@@ -32,23 +45,17 @@ export const GET = async () => {
   //   const messages = (<Database>DB).messages.find(
   //     (x) => x.roomId === roomId );
   // }
-
-  return NextResponse.json({
-    ok: true,
-    message: (<Database>DB).messages //filtered
-  });
-
-  }
+};
 
 export const POST = async (request: NextRequest) => {
   const body = await request.json();
   const { roomId } = body;
   readDB();
-  
 
-  const foundRoomId= (<Database>DB).rooms.findIndex(
-    (x) => x.roomId === roomId);
-  if(foundRoomId==-1){
+  const foundRoomId = (<Database>DB).rooms.findIndex(
+    (x) => x.roomId === roomId
+  );
+  if (foundRoomId == -1) {
     return NextResponse.json(
       {
         ok: false,
@@ -95,8 +102,7 @@ export const DELETE = async (request: NextRequest) => {
     return NextResponse.json(
       {
         ok: false,
-        message:
-          "Message is not found",
+        message: "Message is not found",
       },
       { status: 404 }
     );

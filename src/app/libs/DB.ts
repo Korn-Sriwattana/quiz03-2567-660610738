@@ -19,6 +19,19 @@ export interface User {
   role: "ADMIN" | "SUPER_ADMIN";
 }
 
+export interface Database {
+  rooms: Room[];
+  messages: Message[];
+  users: User[];
+}
+
+export interface Payload {
+  roomName: string;
+  roomId: string;
+  // studentId: string;
+  role: string;
+}
+
 const originalDB = {
   rooms: [
     {
